@@ -38,11 +38,7 @@ library LibDiamond {
         require(msg.sender == diamondStorage().contractOwner, "LibDiamond: Must be contract owner");
     }
 
-    function diamondCut(
-        IDiamondCut.FacetCut[] memory _diamondCut,
-        address _init,
-        bytes memory _calldata
-    ) internal {
+    function diamondCut(IDiamondCut.FacetCut[] memory _diamondCut, address _init, bytes memory _calldata) internal {
         for (uint256 i; i < _diamondCut.length; i++) {
             IDiamondCut.FacetCutAction action = _diamondCut[i].action;
             if (action == IDiamondCut.FacetCutAction.Add) {

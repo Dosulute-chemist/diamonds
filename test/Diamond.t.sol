@@ -81,7 +81,7 @@ contract DiamondTest is Test {
     }
 
     function test_UnknownFunctionReverts() public {
-        (bool ok, ) = address(diamond).call(abi.encodeWithSignature("doesNotExist()"));
+        (bool ok,) = address(diamond).call(abi.encodeWithSignature("doesNotExist()"));
         assertFalse(ok);
     }
 
@@ -103,9 +103,7 @@ contract DiamondTest is Test {
         sels[0] = ERC20Facet.transfer.selector;
         _cut(address(0), IDiamondCut.FacetCutAction.Remove, sels);
 
-        (bool ok, ) = address(diamond).call(
-            abi.encodeWithSelector(ERC20Facet.transfer.selector, alice, 1 ether)
-        );
+        (bool ok,) = address(diamond).call(abi.encodeWithSelector(ERC20Facet.transfer.selector, alice, 1 ether));
         assertFalse(ok);
         assertEq(DiamondLoupeFacet(address(diamond)).facetAddress(ERC20Facet.transfer.selector), address(0));
     }
